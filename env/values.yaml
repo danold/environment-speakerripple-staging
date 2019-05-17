@@ -1,14 +1,31 @@
-expose:
-  Args: 
-    - --v
-    - 4
-  Annotations:
-    helm.sh/hook: post-install,post-upgrade
-    helm.sh/hook-delete-policy: hook-succeeded
-
+PipelineSecrets:
+  DockerConfig: '{"auths": {"docker-registry.default.svc:5000": {"auth": "c2VydmljZWFjY291bnQ6ZXlKaGJHY2lPaUpTVXpJMU5pSXNJbXRwWkNJNklpSjkuZXlKcGMzTWlPaUpyZFdKbGNtNWxkR1Z6TDNObGNuWnBZMlZoWTJOdmRXNTBJaXdpYTNWaVpYSnVaWFJsY3k1cGJ5OXpaWEoyYVdObFlXTmpiM1Z1ZEM5dVlXMWxjM0JoWTJVaU9pSnBibXR2Y0NJc0ltdDFZbVZ5Ym1WMFpYTXVhVzh2YzJWeWRtbGpaV0ZqWTI5MWJuUXZjMlZqY21WMExtNWhiV1VpT2lKcVpXNXJhVzV6TFhndGNtVm5hWE4wY25rdGRHOXJaVzR0T0hKeGJqa2lMQ0pyZFdKbGNtNWxkR1Z6TG1sdkwzTmxjblpwWTJWaFkyTnZkVzUwTDNObGNuWnBZMlV0WVdOamIzVnVkQzV1WVcxbElqb2lhbVZ1YTJsdWN5MTRMWEpsWjJsemRISjVJaXdpYTNWaVpYSnVaWFJsY3k1cGJ5OXpaWEoyYVdObFlXTmpiM1Z1ZEM5elpYSjJhV05sTFdGalkyOTFiblF1ZFdsa0lqb2laVEEyTTJJMVptUXROemhoT1MweE1XVTVMVGhsWWpZdE1EQXdaRE5oTW1SaU0yUmpJaXdpYzNWaUlqb2ljM2x6ZEdWdE9uTmxjblpwWTJWaFkyTnZkVzUwT21sdWEyOXdPbXBsYm10cGJuTXRlQzF5WldkcGMzUnllU0o5LmZOdGhhNmtVb0VZYVp6Q090cW0zZmJ6SnZaT1hycG53Y1hvODZ4OUxqNk9Ud29jdFZZSlQybURzZzdYTnpSb1lRekdkZE04eElFSEpNZHhDUmdBTnFqMkcyc01fSnBNSlVhdTUtOUcyVXJpT0o3VEljQkZkZjRCVHN0MFJNdjhnWF9sUzR1X2tSZnJTRDYtNWgyc1BGbW1tUE9ZOXQ1NmNFZUVqUWwwZlNNUFRzZENyckl5SXd3akNNNWIyNVRzdVUzcHJXNVBFUkdkODR4U3VxX1ZmZ3RVVFhNVm5EY1pxZ3NETFlwbTgwTVlMR01QajJJeldZNVVuMTM1Q1RCSFJfazlFQVUxWkN0QldBR1p5M1JaRE9XaGxZSnAzb2daNFotTXJ1VTZ1bkFwN2NGY3FlSC0tZXJkUk04U0dkM2lhM1RQQy1sd1FLVDBvVVZJWm9QemZnQQ=="}}}'
 cleanup:
-  Args: 
-    - --cleanup
   Annotations:
     helm.sh/hook: pre-delete
     helm.sh/hook-delete-policy: hook-succeeded
+  Args:
+  - --cleanup
+controllerbuild:
+  enabled: true
+controllerworkflow:
+  enabled: false
+dockerRegistry: docker-registry.default.svc:5000
+expose:
+  Annotations:
+    helm.sh/hook: post-install,post-upgrade
+    helm.sh/hook-delete-policy: hook-succeeded
+  Args:
+  - --v
+  - 4
+  config:
+    domain: services.betalaibutik.se
+    exposer: Route
+    http: "true"
+jenkins:
+  Servers:
+    Global:
+      EnvVars:
+        TILLER_NAMESPACE: kube-system
+  enabled: false
+prow: {}
